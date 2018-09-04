@@ -1,0 +1,13 @@
+package com.fngry.passit.testng.ext;
+
+import java.util.List;
+
+public interface TestCaseMock {
+
+    int getInvokeCount();
+
+    String getName();
+
+    List<? extends TestCaseMockInvocation> getInvocations();
+
+}
