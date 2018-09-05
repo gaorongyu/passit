@@ -1,14 +1,11 @@
 package com.fngry.passit.testng.ext.impl;
 
-import com.fngry.passit.testng.ext.TestCase;
-import com.fngry.passit.testng.ext.TestCaseExpectation;
-import com.fngry.passit.testng.ext.TestCaseMock;
-import com.fngry.passit.testng.ext.TestCaseRunner;
+import com.fngry.passit.testng.ext.*;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class TestCaseImpl implements TestCase {
+public class TestCaseImpl extends TestCases implements TestCase {
 
     private final Object testInstance;
 
