@@ -2,8 +2,10 @@ package com.fngry.passit.testng.ext.impl;
 
 import com.fngry.passit.testng.ext.TestCaseMock;
 import com.fngry.passit.testng.ext.TestCaseMockInvocation;
+import org.testng.Assert;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TestCaseMockImpl implements TestCaseMock {
@@ -34,4 +36,34 @@ public class TestCaseMockImpl implements TestCaseMock {
     public List<? extends TestCaseMockInvocation> getInvocations() {
         return null;
     }
+
+    public Object invoke(Object[] args) throws Exception {
+        return invoke(Arrays.asList(args));
+    }
+
+    public synchronized Object invoke(List<?> args) throws Exception {
+        int index = this.invokeCount;
+        TestCaseMockInvocation invocation = invocation(index);
+
+        if (invocation == null) {
+            Assert.fail("Mock invoke too many times: " + name);
+        }
+        return invocation.execute(args);
+    }
+
+    private TestCaseMockInvocation invocation(int index) {
+        int invokeCount = 0;
+
+        for (TestCaseMockInvocation invocation : invocations) {
+            invokeCount = invokeCount + invocation.getInvokeCount();
+            if (!invocation.acceptMoreInvocation()) {
+                continue;
+            }
+            if (invokeCount == index) {
+                return invocation;
+            }
+        }
+        return null;
+    }
+
 }

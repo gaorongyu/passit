@@ -18,7 +18,7 @@ public class TestCases {
         return TEST_CASES_STACK.get().pop();
     }
 
-    protected static TestCase peek() {
+    public static TestCase peek() {
         Stack<TestCase> testCases = TEST_CASES_STACK.get();
         if (testCases.isEmpty()) {
             return null;

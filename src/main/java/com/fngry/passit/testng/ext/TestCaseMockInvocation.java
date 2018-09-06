@@ -15,6 +15,12 @@ public interface TestCaseMockInvocation {
 
     Actual dequeue(long timeout, TimeUnit timeUnit) throws Exception;
 
+    int getInvokeCount();
+
+    boolean acceptMoreInvocation();
+
+    Object execute(List<?> args) throws Exception;
+
 
     interface Actual {
 

@@ -33,4 +33,19 @@ public class TestCaseMockInvocationImpl implements TestCaseMockInvocation {
         return null;
     }
 
+    @Override
+    public int getInvokeCount() {
+        return 0;
+    }
+
+    @Override
+    public boolean acceptMoreInvocation() {
+        return false;
+    }
+
+    @Override
+    public synchronized Object execute(List<?> args) throws Exception {
+        return null;
+    }
+
 }
