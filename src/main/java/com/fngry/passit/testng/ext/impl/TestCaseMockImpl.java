@@ -37,6 +37,7 @@ public class TestCaseMockImpl implements TestCaseMock {
         return null;
     }
 
+    @Override
     public Object invoke(Object[] args) throws Exception {
         return invoke(Arrays.asList(args));
     }

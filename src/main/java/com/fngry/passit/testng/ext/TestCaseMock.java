@@ -10,4 +10,6 @@ public interface TestCaseMock {
 
     List<? extends TestCaseMockInvocation> getInvocations();
 
+    Object invoke(Object[] args) throws Exception;
+
 }
