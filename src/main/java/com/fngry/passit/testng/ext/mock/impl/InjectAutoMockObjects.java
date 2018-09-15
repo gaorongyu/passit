@@ -1,12 +1,22 @@
 package com.fngry.passit.testng.ext.mock.impl;
 
+import com.fngry.passit.testng.ext.mock.InjectAutoMockObject;
 import org.mockito.internal.util.reflection.FieldReader;
 import org.mockito.internal.util.reflection.FieldSetter;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ *
+ * inject mock object （eg. remote interface)
+ *
+ * @author gaorongyu
+ */
 public class InjectAutoMockObjects {
+
+    private static final InjectAutoMockObjects INSTANCE = new InjectAutoMockObjects();
 
     public static class Injection {
 
@@ -37,12 +47,35 @@ public class InjectAutoMockObjects {
 
 
     public static Collection<Injection> process(Object testInstance, Collection<AutoMockObjects.Mock> mocks) {
-        return null;
+        Collection<Injection> result = new ArrayList<>();
+
+        Class<?> clazz = testInstance.getClass();
+        while (clazz != Object.class) {
+            INSTANCE.process(clazz, testInstance, mocks, result);
+            clazz = clazz.getSuperclass();
+        }
+        return result;
     }
 
-    public static void process(Class<?> clazz, Object testInstance, Collection<AutoMockObjects.Mock> mocks,
+    public void process(Class<?> clazz, Object testInstance, Collection<AutoMockObjects.Mock> mocks,
             Collection<Injection> injections) {
+        Collection<Object> mocksDependences = scanInjectAutoMockObject(clazz, testInstance);
+        mocks.forEach(mock -> inject(mock, mocksDependences, injections));
+    }
 
+    private Collection<Object> scanInjectAutoMockObject(Class<?> clazz, Object testInstance) {
+        Collection<Object> result = new ArrayList<>();
+
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            if (field.getAnnotation(InjectAutoMockObject.class) == null) {
+                continue;
+            }
+
+            FieldReader fieldReader = new FieldReader(testInstance, field);
+            result.add(fieldReader.read());
+        }
+        return result;
     }
 
     private static void inject(AutoMockObjects.Mock mock, Collection<Object> mockDependences,
