@@ -7,7 +7,7 @@ public class TestCaseMeta {
 
     private final String uuid = UUID.randomUUID().toString();
 
-    private String testGroup;
+    private String caseGroup;
 
     private String source;
 
@@ -17,12 +17,13 @@ public class TestCaseMeta {
 
     private Map<String, Object> extendInfo;
 
-    public String getTestGroup() {
-        return testGroup;
+
+    public String getCaseGroup() {
+        return caseGroup;
     }
 
-    public void setTestGroup(String testGroup) {
-        this.testGroup = testGroup;
+    public void setCaseGroup(String caseGroup) {
+        this.caseGroup = caseGroup;
     }
 
     public String getSource() {
