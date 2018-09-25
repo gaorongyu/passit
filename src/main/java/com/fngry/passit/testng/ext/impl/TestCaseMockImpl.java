@@ -7,6 +7,7 @@ import org.testng.Assert;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class TestCaseMockImpl implements TestCaseMock {
 
@@ -20,6 +21,15 @@ public class TestCaseMockImpl implements TestCaseMock {
 
     public TestCaseMockImpl(String name, Object conf) {
         // todo
+        this.name = name;
+
+        if (conf instanceof Map) {
+            TestCaseMockInvocationImpl invocation = new TestCaseMockInvocationImpl(name, 0, (Map<String, Object>) conf);
+        } else if (conf instanceof List) {
+
+        } else {
+            throw new RuntimeException("Mock is not Map or List type");
+        }
     }
 
     @Override
@@ -29,12 +39,12 @@ public class TestCaseMockImpl implements TestCaseMock {
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override
     public List<? extends TestCaseMockInvocation> getInvocations() {
-        return null;
+        return this.invocations;
     }
 
     @Override
@@ -65,6 +75,11 @@ public class TestCaseMockImpl implements TestCaseMock {
             }
         }
         return null;
+    }
+
+    @Override
+    public void verify() {
+        invocations.forEach(e -> e.verify());
     }
 
 }

@@ -5,6 +5,16 @@ import com.fngry.passit.testng.ext.TestCase;
 import com.fngry.passit.testng.ext.TestCaseExpectation;
 import org.testng.Assert;
 
+import java.util.function.Function;
+
+/**
+ *
+ * TestCase expectation
+ *
+ * @param <T>
+ *
+ * @author gaorongyu
+ */
 public class TestCaseExpectationImpl<T> implements TestCaseExpectation<T> {
 
     private final TestCase testCase;
@@ -40,7 +50,13 @@ public class TestCaseExpectationImpl<T> implements TestCaseExpectation<T> {
 
     @Override
     public void verify(T actual) {
-
+        if (expectedValue != null && Function.class.isAssignableFrom(expectedValue.getClass())) {
+            // expectedValue is function then invoke function to get result
+            verify(actual, ((Function) expectedValue).apply(this.testCase.getTestCaseConfig().getData().getInputs()),
+                    name);
+        } else {
+            verify(actual, expectedValue, name);
+        }
     }
 
     public static Object verify(Object actual, Object expectedValue, String name) {

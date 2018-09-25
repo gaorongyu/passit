@@ -21,6 +21,8 @@ public interface TestCaseMockInvocation {
 
     Object execute(List<?> args) throws Exception;
 
+    void verify();
+
 
     interface Actual {
 

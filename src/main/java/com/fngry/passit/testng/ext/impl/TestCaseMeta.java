@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class TestCaseMeta {
 
-    private final String uuid = UUID.randomUUID().toString();
+    public final String uuid = UUID.randomUUID().toString();
 
     private String caseGroup;
 

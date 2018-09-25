@@ -1,5 +1,7 @@
 package com.fngry.passit.testng.ext;
 
+import com.fngry.passit.testng.ext.impl.TestCaseConfig;
+
 public interface TestCase {
 
     String getUuid();
@@ -28,6 +30,8 @@ public interface TestCase {
 
     <T> TestCaseExpectation<T> getExpectation(String name, Class<T> type);
 
+    TestCaseExpectation<?> getExpectation(String name);
+
     void verifyExpectation(String name, Object actual);
 
     TestCaseMock getMock(String name);
@@ -38,6 +42,6 @@ public interface TestCase {
 
     TestCaseRunner newChild(String name);
 
-
+    TestCaseConfig getTestCaseConfig();
 
 }

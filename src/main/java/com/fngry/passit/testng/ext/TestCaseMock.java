@@ -12,4 +12,6 @@ public interface TestCaseMock {
 
     Object invoke(Object[] args) throws Exception;
 
+    void verify();
+
 }
