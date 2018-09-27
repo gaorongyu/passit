@@ -3,12 +3,14 @@ package com.fngry.passit.testng.ext.impl.loader.yaml;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class YamlTestResource {
 
@@ -92,7 +94,15 @@ public class YamlTestResource {
         }
 
         public Iterator<Object> iterator() {
-            return null;
+            // load resource file by yaml documents separator
+            try {
+                Yaml yaml = new Yaml();
+                Iterable<Object> caseResources = yaml.loadAll(resource.getInputStream());
+
+                return caseResources.iterator();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }
