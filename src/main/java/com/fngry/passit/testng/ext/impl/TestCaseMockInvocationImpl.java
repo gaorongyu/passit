@@ -1,8 +1,12 @@
 package com.fngry.passit.testng.ext.impl;
 
+import com.fngry.passit.testng.ext.ConfigException;
 import com.fngry.passit.testng.ext.TestCaseExpectation;
 import com.fngry.passit.testng.ext.TestCaseMockInvocation;
+import org.springframework.util.StringUtils;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -60,9 +64,25 @@ public class TestCaseMockInvocationImpl implements TestCaseMockInvocation {
             message = (String) ((Map) throwConf).get(THROW_MESSAGE);
         }
 
-        // reflect
+        if (StringUtils.isEmpty(expectationClassName)) {
+            throw new ConfigException("fail to resolve throw, class is not defined");
+        }
 
-        return null;
+        // reflect
+        try {
+            return newException(expectationClassName, message);
+        } catch (Exception e) {
+            throw new ConfigException("fail to create Exception: ", e);
+        }
+
+    }
+
+    private Exception newException(String expectationClassName, String message) throws ClassNotFoundException,
+            NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        Class exceptionClass = Class.forName(expectationClassName);
+        Constructor constructor = exceptionClass.getConstructor(String.class);
+        Exception exception = (Exception) constructor.newInstance(message);
+        return exception;
     }
 
     @Override
@@ -72,12 +92,12 @@ public class TestCaseMockInvocationImpl implements TestCaseMockInvocation {
 
     @Override
     public Object getReturn() {
-        return null;
+        return this.ret;
     }
 
     @Override
     public Throwable getException() {
-        return null;
+        return this.thr;
     }
 
     @Override
