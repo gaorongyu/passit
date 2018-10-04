@@ -6,7 +6,9 @@ import com.fngry.passit.testng.ext.TestCaseMockInvocation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 public class TestCaseMockInvocationImpl implements TestCaseMockInvocation {
 
@@ -16,6 +18,10 @@ public class TestCaseMockInvocationImpl implements TestCaseMockInvocation {
 
     private static final String ARGS = "args";
 
+    private static final String THROW_CLASS = "throwClass";
+
+    private static final String THROW_MESSAGE = "throwMessage";
+
     private Object ret;
 
     private Exception thr;
@@ -23,9 +29,10 @@ public class TestCaseMockInvocationImpl implements TestCaseMockInvocation {
     // todo
 //    private ArgsExpectation args;
 
+    LinkedBlockingDeque<Actual> exchanger = new LinkedBlockingDeque<>();
 
 
-    private List<ActualImpl> actuals = new ArrayList<>();
+    private List<Actual> actuals = new ArrayList<>();
 
     private String toString;
 
@@ -36,6 +43,26 @@ public class TestCaseMockInvocationImpl implements TestCaseMockInvocation {
             throw new RuntimeException("return and throw cannot define at the same time");
         }
 
+        this.thr = resolvethrow(raw);
+
+    }
+
+    private Exception resolvethrow(Map<String, Object> raw) {
+        Object throwConf = raw.get(THROW);
+
+        String expectationClassName = null;
+        String message = null;
+
+        if (throwConf.getClass() == String.class) {
+            expectationClassName = throwConf.getClass().getSimpleName();
+        } else if (throwConf instanceof Map) {
+            expectationClassName = (String) ((Map) throwConf).get(THROW_CLASS);
+            message = (String) ((Map) throwConf).get(THROW_MESSAGE);
+        }
+
+        // reflect
+
+        return null;
     }
 
     @Override
@@ -59,8 +86,14 @@ public class TestCaseMockInvocationImpl implements TestCaseMockInvocation {
     }
 
     @Override
+    public void enqueue(Actual actual) {
+        exchanger.offer(actual);
+        actuals.add(actual);
+    }
+
+    @Override
     public Actual dequeue(long timeout, TimeUnit timeUnit) throws Exception {
-        return null;
+        return exchanger.poll(timeout, timeUnit);
     }
 
     @Override
@@ -74,8 +107,31 @@ public class TestCaseMockInvocationImpl implements TestCaseMockInvocation {
     }
 
     @Override
-    public synchronized Object execute(List<?> args) throws Exception {
+    public synchronized Object execute(List<?> arguments) throws Exception {
+        if (exchanger == null) {
+            return __execute__(arguments);
+        }
         return null;
+    }
+
+    private Object __execute__(List<?> arguments) throws Exception {
+        if (this.thr != null) {
+            throw thr;
+        }
+        return doReturn(arguments, null);
+    }
+
+    private Object doReturn(List<?> actualArgs, List<?> expectedArgs) {
+
+        if (this.ret instanceof Function) {
+            List<Object> all = new ArrayList<>();
+            all.addAll(actualArgs);
+            all.addAll(expectedArgs);
+
+            return ((Function) this.ret).apply(all);
+        }
+
+        return this.ret;
     }
 
     @Override

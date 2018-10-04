@@ -2,6 +2,8 @@ package com.fngry.passit.testng.ext;
 
 import com.fngry.passit.testng.ext.impl.TestCaseConfig;
 
+import java.util.Map;
+
 public interface TestCase {
 
     String getUuid();
@@ -42,6 +44,10 @@ public interface TestCase {
 
     TestCaseRunner newChild(String name);
 
+    void verifyMocks();
+
     TestCaseConfig getTestCaseConfig();
+
+    Map<String, Object> getOutputs();
 
 }

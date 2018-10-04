@@ -25,8 +25,17 @@ public class TestCaseMockImpl implements TestCaseMock {
 
         if (conf instanceof Map) {
             TestCaseMockInvocationImpl invocation = new TestCaseMockInvocationImpl(name, 0, (Map<String, Object>) conf);
+            invocations.add(invocation);
+            times = invocation.getTimes();
         } else if (conf instanceof List) {
-
+            int time = 0;
+            int seq = 0;
+            for (Object obj : (List) conf) {
+                TestCaseMockInvocationImpl invocation = new TestCaseMockInvocationImpl(name, seq, (Map<String, Object>) obj);
+                invocations.add(invocation);
+                seq ++;
+            }
+            this.times = time;
         } else {
             throw new RuntimeException("Mock is not Map or List type");
         }

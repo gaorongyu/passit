@@ -13,13 +13,15 @@ public interface TestCaseMockInvocation {
 
     int getTimes();
 
+    void enqueue(Actual actual);
+
     Actual dequeue(long timeout, TimeUnit timeUnit) throws Exception;
 
     int getInvokeCount();
 
     boolean acceptMoreInvocation();
 
-    Object execute(List<?> args) throws Exception;
+    Object execute(List<?> arguments) throws Exception;
 
     void verify();
 

@@ -182,12 +182,16 @@ public class TestCaseImpl extends TestCases implements TestCase {
         Assert.assertSame(pop, this, "Illegal state of TestCase Stack");
     }
 
-    public void verfyMocks() {
+    public void verifyMocks() {
         this.mocks.values().forEach(e -> e.verify());
     }
 
     public TestCaseConfig getTestCaseConfig() {
         return this.testCaseConfig;
+    }
+
+    public Map<String, Object> getOutputs() {
+        return this.outputs;
     }
 
 }
