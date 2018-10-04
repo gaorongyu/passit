@@ -26,7 +26,7 @@ public class TestMethodHooker implements IHookable {
                     iHookCallBack.runTestMethod(iTestResult);
                 } finally {
                     if (iTestResult.getThrowable() == null) {
-                        testCase.verfyMocks();
+                        testCase.verifyMocks();
                     }
                     testCase.complete();
                 }

@@ -1,0 +1,22 @@
+caseId: Hello World 1
+inputs:
+  request:
+    !!com.fngry.passit.testng.ext.service.request.HelloRequest
+    firstPart: Hello
+    secondPart: World
+
+expectations:
+  response: Good Hello, Hello World
+
+---
+caseId: Hello World 2
+inputs:
+  now: Morning
+  request:
+    !!com.fngry.passit.testng.ext.service.request.HelloRequest
+    firstPart: Hello
+    secondPart: World
+
+expectations:
+  response: Good Morning, Hello World
+

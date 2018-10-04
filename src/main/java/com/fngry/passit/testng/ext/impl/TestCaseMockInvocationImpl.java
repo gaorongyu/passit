@@ -80,8 +80,15 @@ public class TestCaseMockInvocationImpl implements TestCaseMockInvocation {
     private Exception newException(String expectationClassName, String message) throws ClassNotFoundException,
             NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Class exceptionClass = Class.forName(expectationClassName);
-        Constructor constructor = exceptionClass.getConstructor(String.class);
-        Exception exception = (Exception) constructor.newInstance(message);
+        Exception exception;
+
+        if (!StringUtils.isEmpty(message)) {
+            Constructor constructor = exceptionClass.getConstructor(String.class);
+            exception = (Exception) constructor.newInstance(message);
+        } else {
+            exception = (Exception) exceptionClass.newInstance();
+        }
+
         return exception;
     }
 

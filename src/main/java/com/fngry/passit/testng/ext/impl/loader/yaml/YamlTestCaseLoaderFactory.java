@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 public class YamlTestCaseLoaderFactory implements TestCaseLoaderFactory {
 
     public TestCaseLoader newInstance(Method method, Object testInstance) throws Exception {
-        return null;
+        return new YamlTestCaseLoader(method, testInstance);
     }
 
 }

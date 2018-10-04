@@ -35,7 +35,7 @@ public class XMock<R> implements Answer<R> {
         if (testCaseMock == null) {
             throw new AutoMockException("mock not defined: " + name);
         }
-        return (R) ((TestCaseMockImpl) testCaseMock).in;
+        return (R) ((TestCaseMockImpl) testCaseMock).invoke(objects);
     }
 
 

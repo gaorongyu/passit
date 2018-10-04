@@ -47,7 +47,7 @@ public class YamlTestResource {
         YamlTestResource resource = new YamlTestResource(testInstance.getClass().getName()
                 + "." + testMethod.getName());
 
-        String packageName = testInstance.getClass().getPackage() + "." + testMethod.getName();
+        String packageName = testInstance.getClass().getPackage().getName().replace('.', '/');
         String className = testInstance.getClass().getSimpleName();
         String methodName = testMethod.getName();
 
@@ -90,7 +90,9 @@ public class YamlTestResource {
         private YamlTestResource testResource;
 
         public YamlCaseResource(Resource res, String caseGroup, YamlTestResource testResource) {
-
+            this.resource = res;
+            this.caseGroup = caseGroup;
+            this.testResource = testResource;
         }
 
         public Iterator<Object> iterator() {
