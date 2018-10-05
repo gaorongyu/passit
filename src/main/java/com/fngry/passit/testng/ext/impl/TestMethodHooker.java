@@ -8,7 +8,7 @@ public class TestMethodHooker implements IHookable {
 
     @Override
     public void run(IHookCallBack iHookCallBack, ITestResult iTestResult) {
-
+        wrap(iHookCallBack).runTestMethod(iTestResult);
     }
 
     public static IHookCallBack wrap(IHookCallBack iHookCallBack) {

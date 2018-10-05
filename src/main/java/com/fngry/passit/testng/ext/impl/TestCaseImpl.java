@@ -36,7 +36,7 @@ public class TestCaseImpl extends TestCases implements TestCase {
             return Collections.emptyMap();
         }
 
-        Map<String, TestCaseMockImpl> result = new HashMap<>();
+        Map<String, TestCaseMock> result = new HashMap<>();
 
         this.testCaseConfig.getData().getMocks().forEach((k, v) -> {
             if (TestCaseImpl.isPossibleMock(k, v)) {
@@ -44,7 +44,7 @@ public class TestCaseImpl extends TestCases implements TestCase {
             }
         });
 
-        return null;
+        return result;
     }
 
     private static boolean isPossibleMock(String k, Object v) {

@@ -1,0 +1,14 @@
+caseId: test
+inputs:
+  arg: Hello
+expectations:
+  ret: |-
+    World
+    gry!
+mocks:
+  TimeService.now:
+    args:
+      - Hello
+    return: |-
+      World
+      gry!

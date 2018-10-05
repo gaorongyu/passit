@@ -47,12 +47,15 @@ public class TestCaseMockInvocationImpl implements TestCaseMockInvocation {
             throw new RuntimeException("return and throw cannot define at the same time");
         }
 
-        this.thr = resolvethrow(raw);
-
+        this.thr = resolveThrow(raw);
+        this.ret = raw.get(RETURN);
     }
 
-    private Exception resolvethrow(Map<String, Object> raw) {
+    private Exception resolveThrow(Map<String, Object> raw) {
         Object throwConf = raw.get(THROW);
+        if (throwConf == null) {
+            return null;
+        }
 
         String expectationClassName = null;
         String message = null;
@@ -130,12 +133,12 @@ public class TestCaseMockInvocationImpl implements TestCaseMockInvocation {
 
     @Override
     public boolean acceptMoreInvocation() {
-        return false;
+        return true;
     }
 
     @Override
     public synchronized Object execute(List<?> arguments) throws Exception {
-        if (exchanger == null) {
+        if (exchanger == null || exchanger.size() == 0) {
             return __execute__(arguments);
         }
         return null;
