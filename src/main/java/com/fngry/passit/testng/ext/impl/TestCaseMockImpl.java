@@ -20,7 +20,7 @@ public class TestCaseMockImpl implements TestCaseMock {
     private int invokeCount;
 
     public TestCaseMockImpl(String name, Object conf) {
-        // todo
+
         this.name = name;
 
         if (conf instanceof Map) {

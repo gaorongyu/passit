@@ -8,7 +8,7 @@ public class HelloServiceImpl {
 
     private String now;
 
-    private TimeService timeService = new TimeServiceImpl();
+    private TimeService timeService = new TimeServiceImpl(new ExtTimeServiceImpl());
 
     public String sayHello(HelloRequest request) {
         String name = request.getFirstPart();

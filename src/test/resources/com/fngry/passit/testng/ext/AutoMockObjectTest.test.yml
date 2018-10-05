@@ -1,0 +1,23 @@
+caseId: test_01
+inputs:
+  arg: Hello
+expectations:
+  response: World Ext
+mocks:
+  ExtTimeService.now:
+    args:
+      - Hello
+    return:
+      World Ext
+---
+caseId: test_02
+inputs:
+  arg: Hello
+expectations:
+  response: Big World
+mocks:
+  ExtTimeService.now:
+    args:
+      - Hello
+    return:
+      Big World

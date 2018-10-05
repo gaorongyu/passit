@@ -46,6 +46,7 @@ public class AutoMockObjects {
                 throw new AutoMockException("fail to set field " + field.getName()
                         + " annotated with " + annotation, e);
             }
+            result.add(mock);
         }
     }
 

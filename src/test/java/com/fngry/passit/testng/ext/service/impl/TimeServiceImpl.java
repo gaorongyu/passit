@@ -6,7 +6,11 @@ import org.springframework.util.StringUtils;
 
 public class TimeServiceImpl implements TimeService {
 
-    private ExtTimeService extTimeService = new ExtTimeServiceImpl();
+    private ExtTimeService extTimeService;
+
+    public TimeServiceImpl(ExtTimeService extTimeService) {
+        this.extTimeService = extTimeService;
+    }
 
     @Override
     public String now(String name) {
