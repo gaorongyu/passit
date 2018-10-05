@@ -194,4 +194,8 @@ public class TestCaseImpl extends TestCases implements TestCase {
         return this.outputs;
     }
 
+    public String toString() {
+        return this.testCaseConfig.getData().getCaseId();
+    }
+
 }
