@@ -8,6 +8,7 @@
     <groupId>com.fngry.passit</groupId>
     <artifactId>passit</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <scope>test</scope>
 </dependency>
 ```
 * first write TestCase method add annotation: @Test(dataProvider = "default", dataProviderClass = TestCaseDataProvider.class)
