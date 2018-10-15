@@ -8,6 +8,10 @@ import org.mockito.stubbing.Answer;
 
 import java.lang.reflect.Method;
 
+/**
+ * mock answer
+ * @author gaorongyu
+ */
 public class AutoMockAnswer implements Answer<Object> {
 
     public static final AutoMockAnswer INSTANCE = new AutoMockAnswer();

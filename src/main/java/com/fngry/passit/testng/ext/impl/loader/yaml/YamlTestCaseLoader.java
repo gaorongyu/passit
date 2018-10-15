@@ -39,6 +39,7 @@ public class YamlTestCaseLoader implements TestCaseLoader {
         this.testInstance = testInstance;
     }
 
+    @Override
     public Iterator<TestCaseConfig> load() throws Exception {
         YamlTestResource testResource = YamlTestResource.load(testMethod, testInstance);
 

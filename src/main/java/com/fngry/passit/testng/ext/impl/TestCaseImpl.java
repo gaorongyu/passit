@@ -8,6 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * test case implementation
+ * @author gaorongyu
+ */
 public class TestCaseImpl extends TestCases implements TestCase {
 
     private final Object testInstance;
@@ -124,6 +128,7 @@ public class TestCaseImpl extends TestCases implements TestCase {
         return (TestCaseExpectation<T>) getExpectation(name);
     }
 
+    @Override
     public synchronized TestCaseExpectation<?> getExpectation(String name) {
         TestCaseExpectation<?> result = expectations.get(name);
         if (result != null) {
@@ -182,18 +187,22 @@ public class TestCaseImpl extends TestCases implements TestCase {
         Assert.assertSame(pop, this, "Illegal state of TestCase Stack");
     }
 
+    @Override
     public void verifyMocks() {
         this.mocks.values().forEach(e -> e.verify());
     }
 
+    @Override
     public TestCaseConfig getTestCaseConfig() {
         return this.testCaseConfig;
     }
 
+    @Override
     public Map<String, Object> getOutputs() {
         return this.outputs;
     }
 
+    @Override
     public String toString() {
         return this.testCaseConfig.getData().getCaseId();
     }

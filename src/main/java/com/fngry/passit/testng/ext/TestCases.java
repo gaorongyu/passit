@@ -2,6 +2,10 @@ package com.fngry.passit.testng.ext;
 
 import java.util.Stack;
 
+/**
+ * test case util
+ * @author gaorongyu
+ */
 public class TestCases {
 
     private static ThreadLocal<Stack<TestCase>> TEST_CASES_STACK = ThreadLocal.withInitial(() -> new Stack<>());

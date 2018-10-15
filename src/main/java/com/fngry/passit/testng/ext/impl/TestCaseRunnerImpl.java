@@ -6,6 +6,10 @@ import com.fngry.passit.testng.ext.TestCaseRunner;
 import java.util.Map;
 import java.util.function.Consumer;
 
+/**
+ *
+ * @author gaorongyu
+ */
 public class TestCaseRunnerImpl implements TestCaseRunner {
 
     private TestCase testCase;

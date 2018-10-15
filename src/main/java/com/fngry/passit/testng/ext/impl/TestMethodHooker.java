@@ -4,6 +4,10 @@ import org.testng.IHookCallBack;
 import org.testng.IHookable;
 import org.testng.ITestResult;
 
+/**
+ *
+ * @author gaorongyu
+ */
 public class TestMethodHooker implements IHookable {
 
     @Override

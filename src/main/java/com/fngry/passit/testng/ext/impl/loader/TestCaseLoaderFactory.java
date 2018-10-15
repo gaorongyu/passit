@@ -9,6 +9,13 @@ import java.lang.reflect.Method;
  */
 public interface TestCaseLoaderFactory {
 
+    /**
+     * create test case loader
+     * @param method
+     * @param testInstance
+     * @return
+     * @throws Exception
+     */
     TestCaseLoader newInstance(Method method, Object testInstance) throws Exception;
 
 }

@@ -11,6 +11,11 @@ import java.util.Iterator;
  */
 public interface TestCaseLoader {
 
+    /**
+     * load test case
+     * @return
+     * @throws Exception
+     */
     Iterator<TestCaseConfig> load() throws Exception;
 
 }

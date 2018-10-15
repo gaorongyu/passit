@@ -12,6 +12,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * test resource and case resources
+ * @author gaorongyu
+ */
 public class YamlTestResource {
 
     private static final String RESOURCE_PATTERN_0 = "%s/%s.%s";
@@ -33,6 +37,8 @@ public class YamlTestResource {
     private static final String CLASS_PATH = "classpath*:/";
 
     private static final String YML_SUFFIX = ".yml";
+
+    private static final String RESOURCE_PATTERN_ALL = "*";
 
     public final String test;
 
@@ -73,7 +79,7 @@ public class YamlTestResource {
 
     private void addCaseResource(String pattern, Resource res) {
         String caseGroup = null;
-        if (pattern.endsWith("*")) {
+        if (pattern.endsWith(RESOURCE_PATTERN_ALL)) {
             String fileName = res.getFilename();
             caseGroup = fileName.substring(0, fileName.length() - YML_SUFFIX.length());
         }

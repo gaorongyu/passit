@@ -11,6 +11,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ *
+ * @author gaorongyu
+ */
 public class XMock<R> implements Answer<R> {
 
     private final TestCase testCase;
@@ -38,7 +42,7 @@ public class XMock<R> implements Answer<R> {
         return (R) ((TestCaseMockImpl) testCaseMock).invoke(objects);
     }
 
-
+    @Override
     public R answer(InvocationOnMock invocationOnMock) throws Throwable {
         return apply(invocationOnMock.getArguments());
     }

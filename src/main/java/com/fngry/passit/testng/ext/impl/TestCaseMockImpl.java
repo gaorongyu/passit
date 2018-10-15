@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author gaorongyu
+ */
 public class TestCaseMockImpl implements TestCaseMock {
 
     private List<TestCaseMockInvocation> invocations = new ArrayList<>();

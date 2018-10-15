@@ -3,6 +3,10 @@ package com.fngry.passit.testng.ext.impl;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * meta: attribute
+ * @author gaorongyu
+ */
 public class TestCaseMeta {
 
     public final String uuid = UUID.randomUUID().toString();

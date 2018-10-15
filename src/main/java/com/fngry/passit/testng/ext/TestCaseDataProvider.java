@@ -14,10 +14,21 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * data provider
+ * @author gaorongyu
+ */
 public class TestCaseDataProvider {
 
     private static Map<Class<? extends TestCaseLoaderFactory>, TestCaseLoaderFactory> factories = new HashMap<>();
 
+    /**
+     * load case data
+     * @param testMethod test method
+     * @param testInstance test instance
+     * @return
+     * @throws Exception
+     */
     @DataProvider(name = "default")
     public static Iterator<Object[]> load(Method testMethod, @TestInstance Object testInstance) throws Exception {
         Class<? extends TestCaseLoaderFactory> factoryClass = getFactoryClass(testMethod);
@@ -57,6 +68,7 @@ public class TestCaseDataProvider {
             this.testInstance = testInstance;
         }
 
+        @Override
         protected Object[] computeNext() {
             while (testCaseConfigs.hasNext()) {
                 TestCaseConfig config = testCaseConfigs.next();

@@ -1,5 +1,9 @@
 package com.fngry.passit.testng.ext;
 
+/**
+ * config exception
+ * @author gaorongyu
+ */
 public class ConfigException extends RuntimeException {
 
     public ConfigException() {

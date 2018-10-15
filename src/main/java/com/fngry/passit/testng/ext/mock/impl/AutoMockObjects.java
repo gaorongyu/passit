@@ -10,6 +10,10 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * mock objects
+ * @author gaorongyu
+ */
 public class AutoMockObjects {
 
     private static final AutoMockObjects INSTANCE = new AutoMockObjects();

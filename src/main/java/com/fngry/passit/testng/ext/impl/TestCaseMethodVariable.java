@@ -3,6 +3,10 @@ package com.fngry.passit.testng.ext.impl;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ *
+ * @author gaorongyu
+ */
 public class TestCaseMethodVariable {
 
     private final Method method;

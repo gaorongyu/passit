@@ -11,6 +11,10 @@ import org.mockito.internal.creation.MockSettingsImpl;
 
 import java.util.Collection;
 
+/**
+ *
+ * @author gaorongyu
+ */
 public class AutoMock {
 
     private static MockitoCore MC = new MockitoCore();

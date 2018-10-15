@@ -2,6 +2,10 @@ package com.fngry.passit.testng.ext.impl;
 
 import java.util.Map;
 
+/**
+ * test case data object
+ * @author gaorongyu
+ */
 public class TestCaseData {
 
     private String caseId;

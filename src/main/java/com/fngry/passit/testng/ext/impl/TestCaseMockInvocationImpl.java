@@ -14,6 +14,10 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
+/**
+ *
+ * @author gaorongyu
+ */
 public class TestCaseMockInvocationImpl implements TestCaseMockInvocation {
 
     private static final String RETURN = "return";
@@ -139,12 +143,12 @@ public class TestCaseMockInvocationImpl implements TestCaseMockInvocation {
     @Override
     public synchronized Object execute(List<?> arguments) throws Exception {
         if (exchanger == null || exchanger.size() == 0) {
-            return __execute__(arguments);
+            return doExecute(arguments);
         }
         return null;
     }
 
-    private Object __execute__(List<?> arguments) throws Exception {
+    private Object doExecute(List<?> arguments) throws Exception {
         if (this.thr != null) {
             throw thr;
         }

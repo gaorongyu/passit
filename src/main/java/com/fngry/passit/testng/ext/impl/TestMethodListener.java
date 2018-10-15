@@ -4,6 +4,10 @@ import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
 import org.testng.ITestResult;
 
+/**
+ *
+ * @author gaorongyu
+ */
 public class TestMethodListener implements IInvokedMethodListener {
 
 

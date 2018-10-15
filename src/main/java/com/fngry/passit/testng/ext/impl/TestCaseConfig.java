@@ -1,5 +1,9 @@
 package com.fngry.passit.testng.ext.impl;
 
+/**
+ * test case config
+ * @author gaorongyu
+ */
 public class TestCaseConfig {
 
     private TestCaseMeta meta;
