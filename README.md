@@ -144,7 +144,7 @@ expectations:
 
 ### use mocks
 * TestCase Code  
-when method A dependent interface B (local or remote), you can mock result of B with data configured in file  
+when method A depends on interface B (local or remote), you can mock result of B with data configured in file  
 ```java
 package com.fngry.passit.testng.ext;
 
