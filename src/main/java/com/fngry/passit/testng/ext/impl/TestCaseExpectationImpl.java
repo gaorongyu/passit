@@ -50,12 +50,20 @@ public class TestCaseExpectationImpl<T> implements TestCaseExpectation<T> {
 
     @Override
     public void verify(T actual) {
-        if (expectedValue != null && Function.class.isAssignableFrom(expectedValue.getClass())) {
-            // expectedValue is function then invoke function to get result
-            verify(actual, ((Function) expectedValue).apply(this.testCase.getTestCaseConfig().getData().getInputs()),
-                    name);
-        } else {
-            verify(actual, expectedValue, name);
+        verify(actual, expectedValue, name);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void predicateVerify(Object actual) {
+        if (Predictive.class.isAssignableFrom(expectedValue.getClass())) {
+            Predictive predictive = (Predictive) expectedValue;
+            try {
+                predictive.compile();
+            } catch (Exception e) {
+                Assert.fail(name + ": " + e.getMessage(), e);
+            }
+            predictive.verify(actual, name);
         }
     }
 
@@ -68,15 +76,6 @@ public class TestCaseExpectationImpl<T> implements TestCaseExpectation<T> {
         if (actual == null) {
             Assert.assertNotNull(actual, name);
             return actual;
-        }
-
-        if (Predictive.class.isAssignableFrom(expectedValue.getClass())) {
-            try {
-                ((Predictive) expectedValue).compile();
-            } catch (Exception e) {
-                Assert.fail(name + ": " + e.getMessage(), e);
-            }
-            return ((Predictive) expectedValue).verify(actual, name);
         }
 
         Assert.assertEquals(actual, expectedValue, name);

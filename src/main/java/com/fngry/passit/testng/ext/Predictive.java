@@ -11,7 +11,7 @@ public interface Predictive<T> {
      * 编译
      * @throws Exception
      */
-    void compile() throws Exception;
+    Object compile() throws Exception;
 
     /**
      * 验证
@@ -19,6 +19,6 @@ public interface Predictive<T> {
      * @param expectationKey
      * @return
      */
-    Object verify(T actual, String expectationKey);
+    void verify(T actual, String expectationKey);
 
 }

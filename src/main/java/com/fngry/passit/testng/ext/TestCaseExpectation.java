@@ -32,6 +32,8 @@ public interface TestCaseExpectation<T> {
      */
     void verify(T actual);
 
+    void predicateVerify(Object actual);
+
     default void verify(Future<T> future) throws Exception {
         verify(future);
     }

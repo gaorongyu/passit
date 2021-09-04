@@ -1,4 +1,5 @@
-# passit
+# passit  
+  本工程是一个单元测试框架, 基于数据驱动测试理念, 将数据和测试代码分离.  
 
 ## quick start 
 
@@ -222,3 +223,54 @@ mocks:
       Big World
 ```
 
+
+### use groovy
+* TestCase Code  
+  Expections can use dynamic groovy scripts
+
+```java
+package com.fngry.passit.testng.ext;
+
+import com.fngry.passit.testng.ext.service.impl.HelloServiceImpl;
+import com.fngry.passit.testng.ext.service.request.HelloRequest;
+import com.fngry.passit.testng.ext.support.predicate.AnyPredicate;
+import org.testng.annotations.Test;
+
+public class GroovyMockTest {
+
+    private HelloServiceImpl helloService = new HelloServiceImpl();
+
+    @Test(dataProvider = "default", dataProviderClass = TestCaseDataProvider.class)
+    public void testGroovyService(TestCase testCase) {
+
+        HelloRequest request = testCase.getInput("request", HelloRequest.class);
+        helloService.setNow(testCase.getInput("now", String.class));
+
+        String result = helloService.sayHello(request);
+        testCase.getExpectation("response", AnyPredicate.class).predicateVerify(result);
+
+    }
+}
+
+```
+
+* config file
+
+```yaml
+caseId: World 1
+inputs: &inputContext
+  request:
+    !!com.fngry.passit.testng.ext.service.request.HelloRequest
+    firstPart: Hello
+    secondPart: World
+
+expectations:
+  response:
+    !!com.fngry.passit.testng.ext.support.predicate.AnyPredicate
+    context:
+      <<: *inputContext
+    expression: |-
+      return "Good Hello, Hello " + context.get("request").getSecondPart();
+
+
+```

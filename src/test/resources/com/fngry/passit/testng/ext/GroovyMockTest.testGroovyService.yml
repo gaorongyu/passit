@@ -1,0 +1,20 @@
+caseId: World 1
+inputs: &inputContext
+  request:
+    !!com.fngry.passit.testng.ext.service.request.HelloRequest
+    firstPart: Hello
+    secondPart: World
+
+expectations:
+  response:
+    !!com.fngry.passit.testng.ext.support.predicate.AnyPredicate
+    context:
+      <<: *inputContext
+    expression: |-
+      return "Good Hello, Hello " + context.get("request").getSecondPart();
+
+
+
+
+
+
